@@ -7,11 +7,11 @@
 
 let
   pname = "express";
-  version = "3.68.39";
+  version = "3.68.41";
 
   src = fetchurl {
     url = "https://updates.express.ms/desktop/eXpress-${version}.AppImage";
-    hash = "sha256-Hv4GPQH1P5ChhM3SHwIzkwJ4sJkNs8gCZWgquYeT1OM=";
+    hash = "sha256-hZmlbyXob2oT6XjefWLK7N8+nnteOqD5QVge1PwPF8Y=";
   };
 
   appimageContents = appimageTools.extractType1 { inherit pname version src; };
