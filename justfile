@@ -4,13 +4,13 @@ set quiet := true
 set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
 
 pull_appimage version:
-  wget -O "eXpress-{{version}}.AppImage" \
-    "https://updates.express.ms/desktop/eXpress-{{version}}.AppImage"
+  wget2 --force-progress -O "eXpress-{{version}}.AppImage" \
+    "https://updates.express.ms/desktop/eXpress-{{version}}.AppImage" >&2
 
   nix hash file "eXpress-{{version}}.AppImage"
 
 get_latest_appimage_version:
-  { wget --server-response --max-redirect=0 --spider "https://express.ms/download/appimage" 2>&1 || true; } \
+  { wget2 --server-response --max-redirect=0 --spider "https://express.ms/download/appimage" 2>&1 || true; } \
     | rg -o 'eXpress-([0-9]+\.[0-9]+\.[0-9]+)\.AppImage' -r '$1' \
     | head -n1
 
@@ -29,7 +29,7 @@ update_application:
     exit 0
   fi
 
-  HASH="$(just pull_appimage "$NEW_VERSION")"
+  HASH="$(just pull_appimage "$NEW_VERSION" | tail -n1)"
 
   sed -i \
     -e 's/version = "[^"]*"/version = "'"$NEW_VERSION"'"/' \
