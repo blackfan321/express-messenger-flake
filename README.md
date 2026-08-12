@@ -29,7 +29,7 @@ nix profile install github:blackfan321/express-messenger-nix
       url = "github:blackfan321/express-messenger-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  }
+  };
 
   outputs = { nixpkgs, express-messenger, ... }: {
     nixosConfigurations.hostname = nixpkgs.lib.nixosSystem {
