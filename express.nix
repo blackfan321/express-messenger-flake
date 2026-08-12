@@ -7,14 +7,14 @@
 
 let
   pname = "express";
-  version = "3.70.49";
+  version = "3.70.53";
 
   src = fetchurl {
     url = "https://updates.express.ms/desktop/eXpress-${version}.AppImage";
-    hash = "sha256-xBoZSz/MMlV1khEc68+z1EXY+lbqpff/QjgCRPJq04E=";
+    hash = "sha256-AqEX97SnuiXkf/3ydVIZ3f6qf1j88jmH2kHNTSdqXt4=";
   };
 
-  appimageContents = appimageTools.extractType1 { inherit pname version src; };
+  appimageContents = appimageTools.extract { inherit pname version src; };
   mkDesktop = import ./desktop-helper.nix;
 in appimageTools.wrapType2 {
   inherit pname version src;
